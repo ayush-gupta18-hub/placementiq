@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+pydantic
+scikit-learn
+pandas
+numpy
+joblib
+psycopg2-binary
+sqlalchemy
+python-dotenv
+google-generativeai>=0.8.0
+pypdf2
+python-multipart
+httpx
+asyncio
+xgboost
+pandas

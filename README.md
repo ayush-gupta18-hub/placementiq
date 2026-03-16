@@ -6,19 +6,19 @@ PlacementIQ is a comprehensive platform designed to help students prepare for th
 
 ---
 
-## ✨ Features
+## Features
 
-- **🔮 Placement Predictor**: An ML-based engine that evaluates your profile (skills, CGPA, tier, etc.) to predict your placement probability.
-- **📄 AI Resume Analyzer**: Upload your resume to get instant feedback and ATS-friendly optimization suggestions.
-- **🗺️ Personalized Roadmaps**: Generate custom, step-by-step learning paths for various roles (SDE, Data Science, etc.).
-- **🎤 Mock Interviews**: Practice with AI-driven interview scenarios tailored to your target job role.
-- **💡 Smart Project Recommender**: Receive curated, unique project ideas based on your current skill level and interests.
-- **🤝 Mentorship**: Connect with and discover mentors to guide you through your placement journey.
-- **👤 User Profiles**: A customized dashboard to track your coding progress and preparation streaks.
+- **Placement Predictor**: An ML-based engine that evaluates your profile (skills, CGPA, tier, etc.) to predict your placement probability.
+- **AI Resume Analyzer**: Upload your resume to get instant feedback and ATS-friendly optimization suggestions.
+- **Personalized Roadmaps**: Generate custom, step-by-step learning paths for various roles (SDE, Data Science, etc.).
+- **Mock Interviews**: Practice with AI-driven interview scenarios tailored to your target job role.
+- **Smart Project Recommender**: Receive curated, unique project ideas based on your current skill level and interests.
+- **Mentorship**: Connect with and discover mentors to guide you through your placement journey.
+- **User Profiles**: A customized dashboard to track your coding progress and preparation streaks.
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Frontend
 - **Framework**: [Next.js](https://nextjs.org/) (App Router)
@@ -40,13 +40,9 @@ Follow these steps to set up the project locally.
 - Node.js (v18+)
 - Python (v3.10+)
 
-### 1. Clone the repository
-```bash
-git clone <your-github-repo-url>
-cd placement-predictor-ML
-```
 
-### 2. Backend Setup
+
+### 1. Backend Setup
 1. Navigate to the `backend` directory:
    ```bash
    cd backend
@@ -70,7 +66,7 @@ cd placement-predictor-ML
    # The server will start at http://localhost:8000
    ```
 
-### 3. Frontend Setup
+### 2. Frontend Setup
 1. Open a new terminal and navigate to the `frontend` directory:
    ```bash
    cd frontend
@@ -93,7 +89,7 @@ cd placement-predictor-ML
 
 ---
 
-## 🧠 Machine Learning Model
+##  Machine Learning Model
 The ML component is trained on a custom dataset (`placement_dataset.csv`). You can find the model training logic in `train_pipeline.py`. If you want to retrain the model, simply run:
 ```bash
 python train_pipeline.py
@@ -102,5 +98,3 @@ This will generate updated `.pkl` model files in the `models/` directory for the
 
 ---
 
-## 📄 License
-This project is licensed under the MIT License.

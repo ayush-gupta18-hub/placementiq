@@ -10,6 +10,10 @@ load_dotenv()
 # Format: postgresql://user:password@localhost:5432/dbname
 SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./placement.db")
 
+# SQLAlchemy 1.4+ requires `postgresql://` instead of `postgres://`
+if SQLALCHEMY_DATABASE_URL.startswith("postgres://"):
+    SQLALCHEMY_DATABASE_URL = SQLALCHEMY_DATABASE_URL.replace("postgres://", "postgresql://", 1)
+
 # To support both PostgreSQL and SQLite fallback
 if SQLALCHEMY_DATABASE_URL.startswith("sqlite"):
     engine = create_engine(

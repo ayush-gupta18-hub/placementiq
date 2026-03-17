@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
-import google.genai as genai
+from google import genai
 import PyPDF2
 import os
 from dotenv import load_dotenv

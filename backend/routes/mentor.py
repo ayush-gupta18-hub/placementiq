@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-import google.generativeai as genai
+import google.genai as genai
 import os
 from dotenv import load_dotenv
 
@@ -9,10 +9,9 @@ router = APIRouter()
 
 api_key = os.getenv("GEMINI_API_KEY")
 if api_key and api_key != "your_gemini_api_key_here":
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    client = genai.Client(api_key=api_key)
 else:
-    model = None
+    client = None
 
 class ChatMessage(BaseModel):
     role: str
@@ -23,7 +22,7 @@ class MentorConversation(BaseModel):
 
 @router.post("/chat")
 async def mentor_chat(convo: MentorConversation):
-    if not model:
+    if not client:
         return {"response": "Mock Mode: To crack Atlassian, focus heavily on LLD/HLD and ensure you have strong fundamentals in Distributed Systems."}
     
     history = "\n".join([f"{msg.role}: {msg.text}" for msg in convo.messages])
@@ -39,7 +38,10 @@ async def mentor_chat(convo: MentorConversation):
     """
     
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+        )
         return {"response": response.text.strip()}
     except Exception as e:
         error_msg = str(e)

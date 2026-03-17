@@ -1,5 +1,5 @@
 from fastapi import APIRouter, UploadFile, File, HTTPException
-import google.generativeai as genai
+import google.genai as genai
 import PyPDF2
 import os
 from dotenv import load_dotenv
@@ -12,10 +12,9 @@ router = APIRouter()
 # Setup Gemini
 api_key = os.getenv("GEMINI_API_KEY")
 if api_key and api_key != "your_gemini_api_key_here":
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    client = genai.Client(api_key=api_key)
 else:
-    model = None
+    client = None
 
 @router.post("/analyze")
 async def analyze_resume(file: UploadFile = File(...)):
@@ -30,7 +29,7 @@ async def analyze_resume(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to parse PDF: {str(e)}")
 
-    if not model:
+    if not client:
         # Return mock data if API key not set
         return {
             "atsScore": 65,
@@ -47,7 +46,10 @@ async def analyze_resume(file: UploadFile = File(...)):
         
         Resume Text: {text}
         """
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+        )
         # Try to parse json
         result_text = response.text.strip()
         if result_text.startswith("```json"):

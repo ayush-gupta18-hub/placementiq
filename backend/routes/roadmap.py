@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-import google.generativeai as genai
+import google.genai as genai
 import os
 from dotenv import load_dotenv
 import json
@@ -10,10 +10,9 @@ router = APIRouter()
 
 api_key = os.getenv("GEMINI_API_KEY")
 if api_key and api_key != "your_gemini_api_key_here":
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    client = genai.Client(api_key=api_key)
 else:
-    model = None
+    client = None
 
 class ProfileData(BaseModel):
     tier_target: str
@@ -29,7 +28,7 @@ class ProfileData(BaseModel):
 
 @router.post("/generate")
 async def generate_roadmap(profile: ProfileData):
-    if not model:
+    if not client:
         # Return mock
         return {
             "roadmap": [
@@ -97,7 +96,10 @@ async def generate_roadmap(profile: ProfileData):
     """
     
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+        )
         text = response.text.strip()
         if text.startswith("```json"):
             text = text[7:-3]

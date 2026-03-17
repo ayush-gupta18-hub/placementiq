@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-import google.generativeai as genai
+import google.genai as genai
 import os
 from dotenv import load_dotenv
 
@@ -9,10 +9,9 @@ router = APIRouter()
 
 api_key = os.getenv("GEMINI_API_KEY")
 if api_key and api_key != "your_gemini_api_key_here":
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel('gemini-2.5-flash')
+    client = genai.Client(api_key=api_key)
 else:
-    model = None
+    client = None
 
 class ChatMessage(BaseModel):
     role: str
@@ -25,7 +24,7 @@ class Conversation(BaseModel):
 
 @router.post("/chat")
 async def interview_chat(convo: Conversation):
-    if not model:
+    if not client:
         return {"response": "Mock Mode: Nice approach! Can you optimize the space complexity?"}
     
     history = "\n".join([f"{msg.role}: {msg.text}" for msg in convo.messages])
@@ -42,7 +41,10 @@ async def interview_chat(convo: Conversation):
     """
     
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+        )
         return {"response": response.text.strip()}
     except Exception as e:
         error_msg = str(e)
@@ -52,7 +54,7 @@ async def interview_chat(convo: Conversation):
 
 @router.post("/evaluate")
 async def evaluate_interview(convo: Conversation):
-    if not model:
+    if not client:
         return {
             "problemSolving": 8.0,
             "technicalClarity": 7.5,
@@ -85,7 +87,10 @@ async def evaluate_interview(convo: Conversation):
     """
     
     try:
-        response = model.generate_content(prompt)
+        response = client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+        )
         import json
         text_resp = response.text.replace('```json', '').replace('```', '').strip()
         data = json.loads(text_resp)

@@ -16,7 +16,7 @@ app.add_middleware(
         "http://localhost:3000",
         "http://localhost:3001",
         "https://placementiq-khd0.onrender.com",
-        "https://placementiq.vercel.app",
+        "https://placementiq-nu.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],

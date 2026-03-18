@@ -209,7 +209,7 @@ export default function ProfileAnalyzerPage() {
                                                 <Tooltip
                                                     contentStyle={{ backgroundColor: 'hsl(var(--background))', borderRadius: '8px', border: '1px solid hsl(var(--border))' }}
                                                     formatter={(value: any) => [`${value}`, 'Rating']}
-                                                    labelFormatter={(label: string, payload: any) => payload?.[0]?.payload?.contest || label}
+                                                    labelFormatter={(label: any, payload: any) => payload?.[0]?.payload?.contest || label}
                                                 />
                                                 <Area type="monotone" dataKey="rating" stroke="#8b5cf6" strokeWidth={2} fill="url(#ratingGrad)" dot={{ fill: '#8b5cf6', r: 3 }} activeDot={{ r: 5 }} />
                                             </AreaChart>

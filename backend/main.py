@@ -12,7 +12,11 @@ app = FastAPI(title="PlacementIQ Backend")
 # Enable CORS for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=[
+        "http://localhost:3000",
+        "http://localhost:3001",
+        "https://placementiq-khd0.onrender.com",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -29,3 +33,9 @@ app.include_router(profile.router, prefix="/api/profile", tags=["Profile"])
 @app.get("/")
 def health_check():
     return {"status": "ok", "message": "PlacementIQ API is running"}
+
+if __name__ == "__main__":
+    import uvicorn
+    import os
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)

@@ -167,7 +167,8 @@ export default function MockInterviewPage() {
             const apiMsgFormat = messages.map(m => ({ role: m.role, text: m.text }))
             apiMsgFormat.push({ role: 'user', text: userText })
 
-            const response = await fetch("http://localhost:8000/api/interview/chat", {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+            const response = await fetch(`${API_URL}/api/interview/chat`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
@@ -207,7 +208,8 @@ export default function MockInterviewPage() {
 
         try {
             const apiMsgFormat = messages.map(m => ({ role: m.role, text: m.text }))
-            const response = await fetch("http://localhost:8000/api/interview/evaluate", {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+            const response = await fetch(`${API_URL}/api/interview/evaluate`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -35,7 +35,8 @@ export default function RoadmapPage() {
         if (isUserLoaded && user) {
             const fetchUserProfile = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8000/api/profile/user/${user.id}`)
+                    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+                    const response = await fetch(`${API_URL}/api/profile/user/${user.id}`)
                     if (response.ok) {
                         const data = await response.json()
                         setProfileData(data)
@@ -74,7 +75,8 @@ export default function RoadmapPage() {
             const resumeDataStr = localStorage.getItem("last_resume_analysis")
             const resumeData = resumeDataStr ? JSON.parse(resumeDataStr) : null
 
-            const response = await fetch("http://localhost:8000/api/roadmap/generate", {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+            const response = await fetch(`${API_URL}/api/roadmap/generate`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

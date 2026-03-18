@@ -34,7 +34,8 @@ export default function ProfileAnalyzerPage() {
         if (isUserLoaded && user) {
             const fetchUserProfile = async () => {
                 try {
-                    const response = await fetch(`http://localhost:8000/api/profile/user/${user.id}`)
+                    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+                    const response = await fetch(`${API_URL}/api/profile/user/${user.id}`)
                     if (response.ok) {
                         const data = await response.json()
                         if (data.stats) {
@@ -57,7 +58,8 @@ export default function ProfileAnalyzerPage() {
         if (!lcUsername && !cfUsername && !ghUsername) return
         setLoading(true)
         try {
-            const response = await fetch("http://localhost:8000/api/profile/scrape", {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+            const response = await fetch(`${API_URL}/api/profile/scrape`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ leetcode_username: lcUsername, codeforces_username: cfUsername, github_username: ghUsername })

@@ -39,7 +39,8 @@ export default function OnboardingPage() {
 
         try {
             // POST to FastAPI backend
-            const res = await fetch("http://localhost:8000/api/profile/onboard", {
+            const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+            const res = await fetch(`${API_URL}/api/profile/onboard`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

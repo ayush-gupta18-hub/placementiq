@@ -37,7 +37,8 @@ export default function DashboardPage() {
         if (isLoaded && user) {
             const fetchDashboard = async () => {
                 try {
-                    const res = await fetch(`http://localhost:8000/api/profile/user/${user.id}`)
+                    const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
+                    const res = await fetch(`${API_URL}/api/profile/user/${user.id}`)
                     if (res.status === 404) {
                         // User hasn't onboarded, redirect
                         router.push("/onboarding")

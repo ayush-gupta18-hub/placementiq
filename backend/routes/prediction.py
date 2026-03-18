@@ -9,10 +9,10 @@ router = APIRouter()
 
 _routes_dir  = os.path.dirname(os.path.abspath(__file__))
 _backend_dir = os.path.dirname(_routes_dir)
-_project_dir = os.path.dirname(_backend_dir)
 
-MODEL_PATH = os.path.join(_project_dir, "models", "placement_model.pkl")
-SCALER_PATH = os.path.join(_project_dir, "models", "placement_scaler.pkl")
+
+MODEL_PATH = os.path.join(_backend_dir, "models", "placement_model.pkl")
+SCALER_PATH = os.path.join(_backend_dir, "models", "placement_scaler.pkl")
 
 print(f"[Predictor] Looking for model at: {MODEL_PATH}")
 
